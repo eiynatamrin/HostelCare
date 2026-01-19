@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HostelCare</string>
+    <string name="title_activity_map_picker">MapPickerActivity</string>
+</resources>

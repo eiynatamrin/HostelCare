@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hostelcare">
+
+    <!-- REQUIRED PERMISSIONS -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="HostelCare"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HostelCare">
+
+
+    <!-- LOGIN (LAUNCHER) -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- OTHER ACTIVITIES -->
+        <activity android:name=".SignupActivity"/>
+        <activity android:name=".HomeActivity"/>
+        <activity android:name=".ComplaintActivity"/>
+        <activity android:name=".HistoryActivity"/>
+        <activity android:name=".ComplaintDetailsActivity"/>
+        <activity android:name=".AboutDeveloperActivity"/>
+
+        <!-- OPENSTREETMAP PICKER -->
+        <activity
+            android:name=".MapPickerActivity"
+            android:exported="false"
+            android:label="Pick Location"/>
+
+    </application>
+</manifest>

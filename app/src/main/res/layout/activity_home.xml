@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- CONTENT (SCROLLABLE) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- TITLE -->
+            <TextView
+                android:text="Hostel Care"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- IMAGE -->
+            <ImageView
+                android:src="@drawable/img01"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- E-COMPLAINT BUTTON -->
+            <Button
+                android:id="@+id/btnComplaint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-COMPLAINT"
+                android:onClick="openComplaint"
+                android:background="@drawable/btn_round"
+                android:textColor="@android:color/white"/>
+
+            <!-- HISTORY BUTTON -->
+            <Button
+                android:text="HISTORY"
+                android:onClick="history"
+                android:background="@drawable/btn_round"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- ABOUT DEVELOPER BUTTON -->
+            <Button
+                android:text="ABOUT DEVELOPER"
+                android:onClick="openAboutDeveloper"
+                android:background="@drawable/btn_round"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- ABOUT US -->
+            <TextView
+                android:text="About us"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:layout_marginTop="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- LINE UNDER ABOUT US -->
+            <View
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/primary"/>
+
+            <!-- ABOUT US DESCRIPTION -->
+            <TextView
+                android:text="HostelCare helps students report and track hostel maintenance issues efficiently."
+                android:textColor="@color/text_dark"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+            <!-- CONTACT US SECTION -->
+            <TextView
+                android:text="Contact us"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:layout_marginTop="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- LINE UNDER CONTACT US -->
+            <View
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/primary"/>
+
+            <!-- NEED ANY HELP TEXT -->
+            <TextView
+                android:text="Need Any help?"
+                android:textSize="16sp"
+                android:textColor="@color/text_dark"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+            <!-- CONTACT US WITH CLICKABLE PHONE NUMBER -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Contact us : "
+                    android:textSize="16sp"
+                    android:textColor="@color/text_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txtPhoneNumber"
+                    android:text="+60137480988"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="contactUs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- COPYRIGHT (FIXED AT BOTTOM) -->
+    <TextView
+        android:text="© 2026 HostelCare. All rights reserved."
+        android:textSize="12sp"
+        android:textColor="@color/text_dark"
+        android:gravity="center"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
