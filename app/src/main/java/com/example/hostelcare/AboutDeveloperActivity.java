@@ -19,7 +19,7 @@ public class AboutDeveloperActivity extends AppCompatActivity {
         }
         findViewById(R.id.btnGithub).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://github.com/YOUR_USERNAME/YOUR_REPO"));
+            intent.setData(Uri.parse("https://github.com/eiynatamrin/HostelCare.git"));
             startActivity(intent);
         });
 
