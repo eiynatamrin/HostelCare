@@ -213,7 +213,7 @@
 
             <Button
                 android:id="@+id/btnGithub"
-                android:text="View GitHub"
+                android:text="View GitHub Project"
                 android:background="@drawable/btn_round"
                 android:textColor="@android:color/white"
                 android:layout_margin="16dp"
