@@ -53,4 +53,15 @@
 
     </LinearLayout>
 
+    <!-- 🗑 DELETE BUTTON -->
+    <Button
+        android:id="@+id/btnDelete"
+        android:text="Delete"
+        android:textSize="12sp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_red_dark"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

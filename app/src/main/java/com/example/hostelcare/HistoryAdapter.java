@@ -1,12 +1,17 @@
 package com.example.hostelcare;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,22 +55,24 @@ public class HistoryAdapter extends BaseAdapter {
         TextView txtComment = convertView.findViewById(R.id.txtComment);
         TextView txtDate = convertView.findViewById(R.id.txtDate);
         TextView txtStatus = convertView.findViewById(R.id.txtStatus);
+        Button btnDelete = convertView.findViewById(R.id.btnDelete); // ✅ NEW
 
         Map<String, Object> complaint = list.get(position);
 
-        // 🔹 COMMENT (FIRST)
-        String comment = complaint.get("comment") != null ? complaint.get("comment").toString() : "";
+        // 🔹 COMMENT
+        String comment = complaint.get("comment") != null
+                ? complaint.get("comment").toString()
+                : "";
         txtComment.setText(comment);
 
-        // 🔹 DATE (SECOND)
+        // 🔹 DATE
         long timestamp = (long) complaint.get("timestamp");
         String date = new SimpleDateFormat(
                 "dd/MM/yyyy", Locale.getDefault()
         ).format(new Date(timestamp));
-
         txtDate.setText("Date: " + date);
 
-        // 🔹 STATUS (THIRD)
+        // 🔹 STATUS
         String status = complaint.get("status").toString();
         txtStatus.setText("Status: " + status);
 
@@ -75,17 +82,50 @@ public class HistoryAdapter extends BaseAdapter {
             txtStatus.setTextColor(context.getColor(R.color.status_pending));
         }
 
-        // 🔹 CLICK → COMPLAINT DETAILS PAGE
+        // 🔹 CLICK → DETAILS PAGE
         convertView.setOnClickListener(v -> {
-
             Intent intent = new Intent(context, ComplaintDetailsActivity.class);
-
             intent.putExtra("complaintId", complaint.get("id").toString());
-            intent.putExtra("comment", complaint.get("comment").toString());
-            intent.putExtra("status", status);
-            intent.putExtra("timestamp", timestamp);
-
             context.startActivity(intent);
+        });
+
+        // 🔹 DELETE BUTTON LOGIC
+        btnDelete.setOnClickListener(v -> {
+
+            // Optional: prevent deleting completed complaints
+            if (status.equalsIgnoreCase("Completed")) {
+                Toast.makeText(context,
+                        "Completed complaints cannot be deleted",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Complaint")
+                    .setMessage("Are you sure you want to delete this complaint?")
+                    .setPositiveButton("Delete", (dialog, which) -> {
+
+                        String complaintId = complaint.get("id").toString();
+
+                        FirebaseFirestore.getInstance()
+                                .collection("complaints")
+                                .document(complaintId)
+                                .delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    list.remove(position);
+                                    notifyDataSetChanged();
+                                    Toast.makeText(context,
+                                            "Complaint deleted",
+                                            Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(context,
+                                                "Delete failed",
+                                                Toast.LENGTH_SHORT).show()
+                                );
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
 
         return convertView;
