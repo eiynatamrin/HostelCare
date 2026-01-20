@@ -1,10 +1,14 @@
 package com.example.hostelcare;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +39,8 @@ public class ComplaintActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 101;
     private static final int GALLERY_REQUEST = 200;
     private static final int MAP_PICKER_REQUEST = 300;
+
+    private static final String NOTIFICATION_CHANNEL_ID = "complaint_channel";
 
     ImageView imagePreview;
     String imageBase64 = null;
@@ -54,6 +61,8 @@ public class ComplaintActivity extends AppCompatActivity {
         }
 
         imagePreview = findViewById(R.id.imagePreview);
+
+        createNotificationChannel();
     }
 
     @Override
@@ -203,6 +212,9 @@ public class ComplaintActivity extends AppCompatActivity {
                 .add(complaint)
                 .addOnSuccessListener(doc -> {
 
+                    // 🔔 AUTO NOTIFICATION
+                    showSubmissionNotification();
+
                     Toast.makeText(
                             this,
                             "Complaint submitted. Redirecting to Hostel Careline...",
@@ -220,11 +232,41 @@ public class ComplaintActivity extends AppCompatActivity {
                 );
     }
 
+    // ================= LOCAL NOTIFICATION =================
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    NOTIFICATION_CHANNEL_ID,
+                    "Complaint Notifications",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            NotificationManager manager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(channel);
+        }
+    }
+
+    private void showSubmissionNotification() {
+
+        Notification notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher) // use app icon
+                .setContentTitle("Complaint Submitted")
+                .setContentText("Your hostel maintenance complaint was submitted successfully.")
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManager manager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        manager.notify(1001, notification);
+    }
+
     // ================= WHATSAPP CARELINE =================
 
     private void openWhatsAppCareline(String issue, String location) {
 
-        String phoneNumber = "60137480988"; // 013-7480988 (Malaysia format)
+        String phoneNumber = "60137480988"; // 013-7480988
 
         String message =
                 "📢 HOSTEL MAINTENANCE COMPLAINT\n\n" +
